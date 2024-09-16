@@ -666,6 +666,9 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jl_comprar">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jl_comprarMouseClicked"/>
               </Events>

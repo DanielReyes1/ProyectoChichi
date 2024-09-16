@@ -522,6 +522,7 @@ public class login extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(204, 255, 204));
 
+        jl_comprar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_comprar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jl_comprarMouseClicked(evt);
@@ -898,49 +899,52 @@ public class login extends javax.swing.JFrame {
             jd_admin.setLocationRelativeTo(this);
             jd_admin.setVisible(true);
             clienteCheck = false;
-            
-        }else{
+            vendedorCheck = false;
+
+        } else {
             jt_AMostrar.setModel(new DefaultTableModel());
             listaC = cd.ListarClientes();
-        boolean bandera = false;
-        for (CLIENTE c : listaC) {
-            if (jtf_nombreCorreo.getText().equals(c.getNombre()) || jtf_nombreCorreo.getText().equals(c.getCorreoElectronico())) {
-                if (jpf_password.getText().equals(c.getPassword())) {
-                    this.setVisible(false);
-                    jd_client.setModal(true);
-                    jd_client.pack();
-                    jd_client.setLocationRelativeTo(this);
-                    jd_client.setVisible(true);
-                    clienteCheck = true;
-                    bandera = true;
-                } else {
-                    JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
-                }
-            }
-        }
-        listaV = vd.ListarVendedor();
-        if (!bandera) {
-            for (VENDEDOR v : listaV) {
-                if (jtf_nombreCorreo.getText().equals(v.getNombre())) {
-                    if (jpf_password.getText().equals(v.getPassword())) {
+            boolean bandera = false;
+            for (CLIENTE c : listaC) {
+                if (jtf_nombreCorreo.getText().equals(c.getNombre()) || jtf_nombreCorreo.getText().equals(c.getCorreoElectronico())) {
+                    if (jpf_password.getText().equals(c.getPassword())) {
                         this.setVisible(false);
-                        jp_cl.setVisible(false);
-                        jp_com.setVisible(false);
-                        jp_tie.setVisible(false);
-                        jp_ven.setVisible(false);
-                        jd_admin.setModal(true);
-                        jd_admin.pack();
-                        jd_admin.setLocationRelativeTo(this);
-                        jd_admin.setVisible(true);
-
+                        jd_client.setModal(true);
+                        jd_client.pack();
+                        jd_client.setLocationRelativeTo(this);
+                        jd_client.setVisible(true);
+                        clienteCheck = true;
+                        bandera = true;
+                        vendedorCheck = false;
                     } else {
                         JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
                     }
                 }
             }
+            listaV = vd.ListarVendedor();
+            if (!bandera) {
+                for (VENDEDOR v : listaV) {
+                    if (jtf_nombreCorreo.getText().equals(v.getNombre())) {
+                        if (jpf_password.getText().equals(v.getPassword())) {
+                            this.setVisible(false);
+                            jp_cl.setVisible(false);
+                            jp_com.setVisible(false);
+                            jp_tie.setVisible(false);
+                            jp_ven.setVisible(false);
+                            jd_admin.setModal(true);
+                            jd_admin.pack();
+                            jd_admin.setLocationRelativeTo(this);
+                            jd_admin.setVisible(true);
+                            vendedorCheck = true;
+
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
+                        }
+                    }
+                }
+            }
         }
-        }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jpf_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpf_passwordActionPerformed
@@ -1196,26 +1200,50 @@ public class login extends javax.swing.JFrame {
                     }
                     break;
                 case 4:
+                    int vendedorId = 0;
                     listaP = pd.ListarProductos();
                     if (!listaP.isEmpty()) {
-
                         tm = new DefaultTableModel();
                         tm.addColumn("Nombre");
                         tm.addColumn("Tamaño");
                         tm.addColumn("Embalaje");
                         tm.addColumn("Marca");
                         tm.addColumn("Tipo");
-                        for (PRODUCTO fi : listaP) {
-                            Object[] temp = new Object[5];
-                            temp[0] = fi.getNombre();
-                            temp[1] = fi.getTamanio();
-                            temp[2] = fi.getEmbalaje();
-                            temp[3] = fi.getMarca();
-                            temp[4] = fi.getTipo();
-                            tm.addRow(temp);
+                        if (vendedorCheck) {
+                            listaV = vd.ListarVendedor();
+                            listaVP = vpd.ListarVendedor_Producto();
+                            for (VENDEDOR vi : listaV) {
+                                if (vi.getNombre().equals(jtf_nombreCorreo.getText())) {
+                                    vendedorId = vi.getId();
+                                }
+                            }
+                            for (VENDEDOR_PRODUCTO vpi : listaVP) {
+                                for (PRODUCTO fi : listaP) {
+                                    if (fi.getUpc().equals(vpi.getProducto_id()) && vpi.getVendedor_id() == vendedorId) {
+                                        Object[] temp = new Object[5];
+                                        temp[0] = fi.getNombre();
+                                        temp[1] = fi.getTamanio();
+                                        temp[2] = fi.getEmbalaje();
+                                        temp[3] = fi.getMarca();
+                                        temp[4] = fi.getTipo();
+                                        tm.addRow(temp);
+                                    }
+                                }
+                            }
+
+                        } else {
+                            for (PRODUCTO fi : listaP) {
+                                Object[] temp = new Object[5];
+                                temp[0] = fi.getNombre();
+                                temp[1] = fi.getTamanio();
+                                temp[2] = fi.getEmbalaje();
+                                temp[3] = fi.getMarca();
+                                temp[4] = fi.getTipo();
+                                tm.addRow(temp);
+                            }
+                            jt_AMostrar.setModel(tm);
+                            jt_AMostrar.setEnabled(true);
                         }
-                        jt_AMostrar.setModel(tm);
-                        jt_AMostrar.setEnabled(true);
 
                     } else {
                         JOptionPane.showMessageDialog(this, "No hay Productos!");
@@ -1347,9 +1375,16 @@ public class login extends javax.swing.JFrame {
                     break;
                 case 4:
                     PRODUCTO pr = new PRODUCTO();
+                    int vendedor_id = 0;
+                    for (VENDEDOR vi : listaV) {
+                        if (vi.getNombre().equals(jtf_nombreCorreo.getText())) {
+                            vendedor_id = vi.getId();
+                        }
+                    }
                     switch (crud2) {
                         case 1:
                             listaP = pd.ListarProductos();
+                            listaV = vd.ListarVendedor();
                             boolean check = true;
                             for (PRODUCTO pi : listaP) {
                                 if (jt_AMostrar.getValueAt(0, 0).equals(pi.getUpc())) {
@@ -1364,6 +1399,9 @@ public class login extends javax.swing.JFrame {
                                 pr.setMarca((String) jt_AMostrar.getValueAt(0, 4));
                                 pr.setTipo((String) jt_AMostrar.getValueAt(0, 5));
                                 pd.InsertarProductos(pr);
+                                if (vendedorCheck) {
+                                    vpd.InsertarVendedor_Producto(vendedor_id, (String) jt_AMostrar.getValueAt(0, 0));
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(this, "Esta UPC ya esta siendo usada");
                             }
@@ -1439,7 +1477,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jl_comprarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_comprarMouseClicked
-        if (jl_comprar.getText().equals("    Agregar al Carrito")) {
+        if (jl_comprar.getText().equals("Agregar al Carrito")) {
             if (jt_AMostrar1.getSelectedRow() >= 0) {
                 int[] rows = jt_AMostrar1.getSelectedRows();
                 for (int i = 0; i < rows.length; i++) {
@@ -1480,6 +1518,8 @@ public class login extends javax.swing.JFrame {
                     ps.setInt(6, idcliente);
                     ps.setInt(7, 1010);
                     ps.execute();
+                    tm = (DefaultTableModel) jt_AMostrar1.getModel();
+                    tm.setRowCount(0);
                     JOptionPane.showMessageDialog(null, "Fue comprado exitosamente");
                 } catch (SQLException e) {
                     counter++;
@@ -1833,31 +1873,31 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void bt_bitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_bitacoraActionPerformed
-            bit = bitdao.ListarBitacora();
-                    if (!bit.isEmpty()) {
-                        DefaultTableModel tmbit = new DefaultTableModel();
-                        tmbit = new DefaultTableModel();
-                        tmbit.addColumn("Id");
-                        tmbit.addColumn("Usuario");
-                        tmbit.addColumn("Operacion");
-                        tmbit.addColumn("Descripcion");
-                        tmbit.addColumn("Fecha");
-                        for (bitacora fi : bit) {
-                            Object[] temp = new Object[5];
-                            temp[0] = fi.getIdbitacora();
-                            temp[1] = fi.getUsuario();
-                            temp[2] = fi.getOperacion();
-                            temp[3] = fi.getDescripcion();
-                            temp[4] = fi.getFecha();
-                            tmbit.addRow(temp);
-                        }
-                        jt_bitacora.setModel(tmbit);
-                    }
-            jd_bitacora.setModal(true);
-            jd_bitacora.pack();
-            jd_bitacora.setLocationRelativeTo(this);
-            jd_bitacora.setVisible(true);
-            
+        bit = bitdao.ListarBitacora();
+        if (!bit.isEmpty()) {
+            DefaultTableModel tmbit = new DefaultTableModel();
+            tmbit = new DefaultTableModel();
+            tmbit.addColumn("Id");
+            tmbit.addColumn("Usuario");
+            tmbit.addColumn("Operacion");
+            tmbit.addColumn("Descripcion");
+            tmbit.addColumn("Fecha");
+            for (bitacora fi : bit) {
+                Object[] temp = new Object[5];
+                temp[0] = fi.getIdbitacora();
+                temp[1] = fi.getUsuario();
+                temp[2] = fi.getOperacion();
+                temp[3] = fi.getDescripcion();
+                temp[4] = fi.getFecha();
+                tmbit.addRow(temp);
+            }
+            jt_bitacora.setModel(tmbit);
+        }
+        jd_bitacora.setModal(true);
+        jd_bitacora.pack();
+        jd_bitacora.setLocationRelativeTo(this);
+        jd_bitacora.setVisible(true);
+
     }//GEN-LAST:event_bt_bitacoraActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1865,7 +1905,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void bt_bitacoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_bitacoraMouseClicked
-       
+
     }//GEN-LAST:event_bt_bitacoraMouseClicked
 
     /**
@@ -1975,11 +2015,13 @@ public class login extends javax.swing.JFrame {
     TIENDAdao td = new TIENDAdao();
     PRODUCTOdao pd = new PRODUCTOdao();
     bitacoradao bitdao = new bitacoradao();
+    VENDEDOR_PRODUCTOdao vpd = new VENDEDOR_PRODUCTOdao();
     ArrayList<bitacora> bit = new ArrayList();
     ArrayList<CLIENTE> listaC = new ArrayList();
     ArrayList<VENDEDOR> listaV = new ArrayList();
     ArrayList<TIENDA> listaT = new ArrayList();
     ArrayList<PRODUCTO> listaP = new ArrayList();
     ArrayList<PRODUCTO> listaPC = new ArrayList();
-    boolean clienteCheck;
+    ArrayList<VENDEDOR_PRODUCTO> listaVP = new ArrayList();
+    boolean clienteCheck, vendedorCheck;
 }
