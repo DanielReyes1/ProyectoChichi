@@ -1,4 +1,3 @@
-
 package proyectodb;
 
 /**
@@ -11,8 +10,14 @@ public class ProyectoDB {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ConectarDB conexion = new ConectarDB();
-        conexion.conectar();
+        try {
+            ConectarDB conexion = new ConectarDB();
+            conexion.conectar();
+            login log = new login();
+            log.setVisible(true);
+        } catch (Exception e) {
+
+        }
     }
-    
+
 }
