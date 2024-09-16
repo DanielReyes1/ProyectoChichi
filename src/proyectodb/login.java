@@ -60,6 +60,7 @@ public class login extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_AMostrar = new javax.swing.JTable();
         jb_CrMoEl = new javax.swing.JButton();
+        bt_bitacora = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jd_CrMoEl = new javax.swing.JDialog();
@@ -93,6 +94,10 @@ public class login extends javax.swing.JFrame {
         jt_Vistas = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jd_bitacora = new javax.swing.JDialog();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jt_bitacora = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -276,6 +281,18 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        bt_bitacora.setText("BITACORA");
+        bt_bitacora.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_bitacoraMouseClicked(evt);
+            }
+        });
+        bt_bitacora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_bitacoraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jp_CrMoElLayout = new javax.swing.GroupLayout(jp_CrMoEl);
         jp_CrMoEl.setLayout(jp_CrMoElLayout);
         jp_CrMoElLayout.setHorizontalGroup(
@@ -283,9 +300,14 @@ public class login extends javax.swing.JFrame {
             .addGroup(jp_CrMoElLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jp_CrMoElLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jb_CrMoEl, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addGroup(jp_CrMoElLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(15, Short.MAX_VALUE))
+                    .addGroup(jp_CrMoElLayout.createSequentialGroup()
+                        .addComponent(jb_CrMoEl, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_bitacora)
+                        .addGap(20, 20, 20))))
         );
         jp_CrMoElLayout.setVerticalGroup(
             jp_CrMoElLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,8 +315,13 @@ public class login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jb_CrMoEl, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGroup(jp_CrMoElLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_CrMoElLayout.createSequentialGroup()
+                        .addComponent(jb_CrMoEl, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_CrMoElLayout.createSequentialGroup()
+                        .addComponent(bt_bitacora)
+                        .addGap(15, 15, 15))))
         );
 
         jButton5.setBackground(new java.awt.Color(255, 102, 102));
@@ -728,6 +755,49 @@ public class login extends javax.swing.JFrame {
         jd_VistasLayout.setVerticalGroup(
             jd_VistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jt_bitacora.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(jt_bitacora);
+
+        jButton2.setText("OK");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jd_bitacoraLayout = new javax.swing.GroupLayout(jd_bitacora.getContentPane());
+        jd_bitacora.getContentPane().setLayout(jd_bitacoraLayout);
+        jd_bitacoraLayout.setHorizontalGroup(
+            jd_bitacoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_bitacoraLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jd_bitacoraLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+        jd_bitacoraLayout.setVerticalGroup(
+            jd_bitacoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_bitacoraLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 758, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1762,6 +1832,42 @@ public class login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void bt_bitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_bitacoraActionPerformed
+            bit = bitdao.ListarBitacora();
+                    if (!bit.isEmpty()) {
+                        DefaultTableModel tmbit = new DefaultTableModel();
+                        tmbit = new DefaultTableModel();
+                        tmbit.addColumn("Id");
+                        tmbit.addColumn("Usuario");
+                        tmbit.addColumn("Operacion");
+                        tmbit.addColumn("Descripcion");
+                        tmbit.addColumn("Fecha");
+                        for (bitacora fi : bit) {
+                            Object[] temp = new Object[5];
+                            temp[0] = fi.getIdbitacora();
+                            temp[1] = fi.getUsuario();
+                            temp[2] = fi.getOperacion();
+                            temp[3] = fi.getDescripcion();
+                            temp[4] = fi.getFecha();
+                            tmbit.addRow(temp);
+                        }
+                        jt_bitacora.setModel(tmbit);
+                    }
+            jd_bitacora.setModal(true);
+            jd_bitacora.pack();
+            jd_bitacora.setLocationRelativeTo(this);
+            jd_bitacora.setVisible(true);
+            
+    }//GEN-LAST:event_bt_bitacoraActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jd_bitacora.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void bt_bitacoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_bitacoraMouseClicked
+       
+    }//GEN-LAST:event_bt_bitacoraMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1798,7 +1904,9 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_bitacora;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1821,6 +1929,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton jb_ACliente3;
     private javax.swing.JButton jb_AEliminar;
     private javax.swing.JButton jb_AInsertar;
@@ -1838,6 +1947,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JDialog jd_CrMoEl;
     private javax.swing.JDialog jd_Vistas;
     private javax.swing.JDialog jd_admin;
+    private javax.swing.JDialog jd_bitacora;
     private javax.swing.JDialog jd_client;
     private javax.swing.JLabel jl_cl;
     private javax.swing.JLabel jl_com;
@@ -1854,6 +1964,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JTable jt_AMostrar;
     private javax.swing.JTable jt_AMostrar1;
     private javax.swing.JTable jt_Vistas;
+    private javax.swing.JTable jt_bitacora;
     private javax.swing.JTextField jtf_nombreCorreo;
     // End of variables declaration//GEN-END:variables
     int crud = -1, crud2 = -1, counter = 0;
@@ -1863,6 +1974,8 @@ public class login extends javax.swing.JFrame {
     VENDEDORdao vd = new VENDEDORdao();
     TIENDAdao td = new TIENDAdao();
     PRODUCTOdao pd = new PRODUCTOdao();
+    bitacoradao bitdao = new bitacoradao();
+    ArrayList<bitacora> bit = new ArrayList();
     ArrayList<CLIENTE> listaC = new ArrayList();
     ArrayList<VENDEDOR> listaV = new ArrayList();
     ArrayList<TIENDA> listaT = new ArrayList();
