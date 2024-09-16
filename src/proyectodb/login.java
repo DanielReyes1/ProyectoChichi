@@ -4,7 +4,9 @@
  */
 package proyectodb;
 
+
 import com.sun.jdi.connect.spi.Connection;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,8 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -54,6 +58,7 @@ public class login extends javax.swing.JFrame {
         jl_ven = new javax.swing.JLabel();
         jp_cl = new javax.swing.JPanel();
         jl_cl = new javax.swing.JLabel();
+        jb_Vistas = new javax.swing.JButton();
         jp_CrMoEl = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_AMostrar = new javax.swing.JTable();
@@ -76,6 +81,21 @@ public class login extends javax.swing.JFrame {
         jl_comprar = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jd_Vistas = new javax.swing.JDialog();
+        jPanel9 = new javax.swing.JPanel();
+        jb_Inventario_de_Productos = new javax.swing.JButton();
+        jb_Compras_por_Cliente = new javax.swing.JButton();
+        jb_Historial_de_Ventas_por_Cliente = new javax.swing.JButton();
+        jb_Los_20_Productos_mas_Vendidos_en_cada_Tienda = new javax.swing.JButton();
+        jb_Los_20_Productos_mas_Vendidos_en_cada_Pais = new javax.swing.JButton();
+        jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_año = new javax.swing.JButton();
+        jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_Pepsi = new javax.swing.JButton();
+        jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_leche = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jt_Vistas = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -200,26 +220,36 @@ public class login extends javax.swing.JFrame {
             .addComponent(jl_cl, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
         );
 
+        jb_Vistas.setText("Vistas");
+        jb_Vistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_VistasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jb_Vistas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jp_cl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jp_ven, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jp_tie, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jp_com, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jb_ACliente4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jb_ACliente3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(91, 91, 91))
+                    .addComponent(jp_com, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jb_ACliente4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jb_ACliente3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(78, 78, 78))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(19, 19, 19)
                 .addComponent(jp_cl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jp_ven, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,7 +261,9 @@ public class login extends javax.swing.JFrame {
                 .addComponent(jb_ACliente4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jp_com, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jb_Vistas, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jp_CrMoEl.setBackground(new java.awt.Color(255, 255, 255));
@@ -502,6 +534,14 @@ public class login extends javax.swing.JFrame {
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
         );
 
+        jButton4.setBackground(new java.awt.Color(204, 255, 204));
+        jButton4.setText("Return");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jd_clientLayout = new javax.swing.GroupLayout(jd_client.getContentPane());
         jd_client.getContentPane().setLayout(jd_clientLayout);
         jd_clientLayout.setHorizontalGroup(
@@ -522,6 +562,8 @@ public class login extends javax.swing.JFrame {
                         .addGap(271, 271, 271))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_clientLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -542,8 +584,170 @@ public class login extends javax.swing.JFrame {
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
             .addGroup(jd_clientLayout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jd_clientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton4)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel9.setBackground(new java.awt.Color(204, 255, 255));
+
+        jb_Inventario_de_Productos.setText("Inventario de Productos");
+        jb_Inventario_de_Productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_Inventario_de_ProductosActionPerformed(evt);
+            }
+        });
+
+        jb_Compras_por_Cliente.setText("Compras por Cliente");
+        jb_Compras_por_Cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_Compras_por_ClienteActionPerformed(evt);
+            }
+        });
+
+        jb_Historial_de_Ventas_por_Cliente.setText("Historial de Ventas por Cleinte");
+        jb_Historial_de_Ventas_por_Cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_Historial_de_Ventas_por_ClienteActionPerformed(evt);
+            }
+        });
+
+        jb_Los_20_Productos_mas_Vendidos_en_cada_Tienda.setText("Los 20 Productos mas Vendidos en cada Tienda");
+        jb_Los_20_Productos_mas_Vendidos_en_cada_Tienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_Los_20_Productos_mas_Vendidos_en_cada_TiendaActionPerformed(evt);
+            }
+        });
+
+        jb_Los_20_Productos_mas_Vendidos_en_cada_Pais.setText("Los 20 Productos mas Vendidos en cada Pais");
+        jb_Los_20_Productos_mas_Vendidos_en_cada_Pais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_Los_20_Productos_mas_Vendidos_en_cada_PaisActionPerformed(evt);
+            }
+        });
+
+        jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_año.setText("Las 5 Tiendas con mas ventas en lo que va de año");
+        jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_año.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_añoActionPerformed(evt);
+            }
+        });
+
+        jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_Pepsi.setText("Las Tiendas que vende Coca-Cola mas que Pepsi");
+        jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_Pepsi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_PepsiActionPerformed(evt);
+            }
+        });
+
+        jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_leche.setText("Los 3 principales tipos de producto que los clientes compran ademas de la leche");
+        jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_leche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_lecheActionPerformed(evt);
+            }
+        });
+
+        jt_Vistas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(jt_Vistas);
+
+        jButton2.setBackground(new java.awt.Color(255, 0, 0));
+        jButton2.setText("X");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setBackground(new java.awt.Color(204, 255, 204));
+        jButton3.setText("Return");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jb_Los_20_Productos_mas_Vendidos_en_cada_Pais, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jb_Inventario_de_Productos))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addComponent(jb_Compras_por_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jb_Historial_de_Ventas_por_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jb_Los_20_Productos_mas_Vendidos_en_cada_Tienda, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addComponent(jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_año, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_Pepsi, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_leche, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 62, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jb_Los_20_Productos_mas_Vendidos_en_cada_Tienda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jb_Historial_de_Ventas_por_Cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jb_Compras_por_Cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jb_Inventario_de_Productos, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_año, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jb_Los_20_Productos_mas_Vendidos_en_cada_Pais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_Pepsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_leche, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jd_VistasLayout = new javax.swing.GroupLayout(jd_Vistas.getContentPane());
+        jd_Vistas.getContentPane().setLayout(jd_VistasLayout);
+        jd_VistasLayout.setHorizontalGroup(
+            jd_VistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jd_VistasLayout.setVerticalGroup(
+            jd_VistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1308,6 +1512,253 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jp_clMouseClicked
 
+    private void jb_VistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_VistasActionPerformed
+        jd_admin.setVisible(false);
+        jd_Vistas.setModal(true);
+        jd_Vistas.pack();
+        jd_Vistas.setLocationRelativeTo(this);
+        jd_Vistas.setVisible(true);
+    }//GEN-LAST:event_jb_VistasActionPerformed
+
+    private void jb_Inventario_de_ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Inventario_de_ProductosActionPerformed
+        String sql = "SELECT * FROM vista_inventario_productos;";
+        
+            
+        tm = new DefaultTableModel();
+            TableRowSorter<TableModel> orden = new TableRowSorter<TableModel>(tm);
+            jt_Vistas.setRowSorter(orden);
+            tm.addColumn("Tienda");
+            tm.addColumn("Producto");
+            tm.addColumn("Cantidad");
+            tm.addColumn("Precio");
+            
+                        
+            Object[] temp=new Object[4];
+            Statement st;
+            
+            try{
+                ConectarDB con=new ConectarDB();
+                st = con.conectar().createStatement();
+                java.sql.ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    temp[0]=rs.getString(1);
+                    temp[1]=rs.getString(2);
+                    temp[2]=rs.getInt(3);
+                    temp[3]=rs.getDouble(4);
+                    tm.addRow(temp);
+                }
+                jt_Vistas.setModel(tm);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_jb_Inventario_de_ProductosActionPerformed
+
+    private void jb_Compras_por_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Compras_por_ClienteActionPerformed
+        String sql = "SELECT * FROM vista_compras_clientes;";
+        
+            
+            tm = new DefaultTableModel();
+            TableRowSorter<TableModel> orden = new TableRowSorter<TableModel>(tm);
+            jt_Vistas.setRowSorter(orden);
+            tm.addColumn("ID");
+            tm.addColumn("Nombre");
+            tm.addColumn("Correo");
+            tm.addColumn("Total");
+            
+                        
+            Object[] temp=new Object[4];
+            Statement st;
+            
+            try{
+                ConectarDB con=new ConectarDB();
+                st = con.conectar().createStatement();
+                java.sql.ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    temp[0]=rs.getInt(1);
+                    temp[1]=rs.getString(2);
+                    temp[2]=rs.getString(3);
+                    temp[3]=rs.getDouble(4);
+                    tm.addRow(temp);
+                }
+                jt_Vistas.setModel(tm);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_jb_Compras_por_ClienteActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jb_Historial_de_Ventas_por_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Historial_de_Ventas_por_ClienteActionPerformed
+        String sql = "SELECT * FROM vista_historial_ventas_tiendas;";
+        tm = new DefaultTableModel();
+            TableRowSorter<TableModel> orden = new TableRowSorter<TableModel>(tm);
+            jt_Vistas.setRowSorter(orden);
+            tm.addColumn("Tienda");
+            tm.addColumn("Fecha");
+            tm.addColumn("Total");
+            
+                        
+            Object[] temp=new Object[3];
+            Statement st;
+            
+            try{
+                ConectarDB con=new ConectarDB();
+                st = con.conectar().createStatement();
+                java.sql.ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    temp[0]=rs.getString(1);
+                    temp[1]=rs.getString(2);
+                    temp[2]=rs.getDouble(3);
+                    
+                    tm.addRow(temp);
+                }
+                jt_Vistas.setModel(tm);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+     }//GEN-LAST:event_jb_Historial_de_Ventas_por_ClienteActionPerformed
+
+    private void jb_Los_20_Productos_mas_Vendidos_en_cada_TiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Los_20_Productos_mas_Vendidos_en_cada_TiendaActionPerformed
+        String sql = "SELECT * FROM vista_top_20_productos_tienda;";
+        tm = new DefaultTableModel();
+            TableRowSorter<TableModel> orden = new TableRowSorter<TableModel>(tm);
+            jt_Vistas.setRowSorter(orden);
+            tm.addColumn("Tienda");
+            tm.addColumn("Producto");
+            tm.addColumn("Total");
+            
+                        
+            Object[] temp=new Object[3];
+            Statement st;
+            
+            try{
+                ConectarDB con=new ConectarDB();
+                st = con.conectar().createStatement();
+                java.sql.ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    temp[0]=rs.getString(1);
+                    temp[1]=rs.getString(2);
+                    temp[2]=rs.getDouble(3);
+                   
+                    tm.addRow(temp);
+                }
+                jt_Vistas.setModel(tm);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_jb_Los_20_Productos_mas_Vendidos_en_cada_TiendaActionPerformed
+
+    private void jb_Los_20_Productos_mas_Vendidos_en_cada_PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Los_20_Productos_mas_Vendidos_en_cada_PaisActionPerformed
+        String sql = "SELECT * FROM vista_top_20_productos_pais;";
+        tm = new DefaultTableModel();
+            TableRowSorter<TableModel> orden = new TableRowSorter<TableModel>(tm);
+            jt_Vistas.setRowSorter(orden);
+            tm.addColumn("Pais");
+            tm.addColumn("Producto");
+            tm.addColumn("Total");                      
+            Object[] temp=new Object[3];
+            Statement st;          
+            try{
+                ConectarDB con=new ConectarDB();
+                st = con.conectar().createStatement();
+                java.sql.ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    temp[0]=rs.getString(1);
+                    temp[1]=rs.getString(2);
+                    temp[2]=rs.getDouble(3);
+                   
+                    tm.addRow(temp);
+                }
+                jt_Vistas.setModel(tm);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_jb_Los_20_Productos_mas_Vendidos_en_cada_PaisActionPerformed
+
+    private void jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_añoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_añoActionPerformed
+        String sql = "SELECT * FROM vista_top_5_tiendas_anio;";
+        tm = new DefaultTableModel();
+            TableRowSorter<TableModel> orden = new TableRowSorter<TableModel>(tm);
+            jt_Vistas.setRowSorter(orden);
+            tm.addColumn("Tienda");
+            tm.addColumn("Total");                      
+            Object[] temp=new Object[2];
+            Statement st;          
+            try{
+                ConectarDB con=new ConectarDB();
+                st = con.conectar().createStatement();
+                java.sql.ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    temp[0]=rs.getString(1);
+                    temp[1]=rs.getDouble(2);
+                   
+                    tm.addRow(temp);
+                }
+                jt_Vistas.setModel(tm);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_añoActionPerformed
+
+    private void jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_PepsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_PepsiActionPerformed
+        String sql = "SELECT * FROM vista_tiendas_coca_colas_vs_pepsi;";
+        tm = new DefaultTableModel();
+            TableRowSorter<TableModel> orden = new TableRowSorter<TableModel>(tm);
+            jt_Vistas.setRowSorter(orden);
+            tm.addColumn("Tienda");
+            Object[] temp=new Object[1];
+            Statement st;          
+            try{
+                ConectarDB con=new ConectarDB();
+                st = con.conectar().createStatement();
+                java.sql.ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    temp[0]=rs.getString(1);                   
+                    tm.addRow(temp);
+                }
+                jt_Vistas.setModel(tm);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_PepsiActionPerformed
+
+    private void jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_lecheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_lecheActionPerformed
+
+        String sql = "SELECT * FROM vista_top_3_tipos_excluyendo_leche;";
+        tm = new DefaultTableModel();
+            TableRowSorter<TableModel> orden = new TableRowSorter<TableModel>(tm);
+            jt_Vistas.setRowSorter(orden);
+            tm.addColumn("Tipo");
+            tm.addColumn("Total");                      
+            Object[] temp=new Object[2];
+            Statement st;          
+            try{
+                ConectarDB con=new ConectarDB();
+                st = con.conectar().createStatement();
+                java.sql.ResultSet rs = st.executeQuery(sql);
+                while(rs.next()){
+                    temp[0]=rs.getString(1);
+                    temp[1]=rs.getDouble(2);
+                   
+                    tm.addRow(temp);
+                }
+                jt_Vistas.setModel(tm);
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_lecheActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jd_Vistas.setVisible(false);
+        jd_admin.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jd_client.setVisible(false);
+        jd_admin.setVisible(true);    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1345,6 +1796,9 @@ public class login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1360,15 +1814,27 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jb_ACliente3;
     private javax.swing.JButton jb_ACliente4;
     private javax.swing.JButton jb_AEliminar;
     private javax.swing.JButton jb_AInsertar;
     private javax.swing.JButton jb_AModificar;
+    private javax.swing.JButton jb_Compras_por_Cliente;
     private javax.swing.JButton jb_CrMoEl;
+    private javax.swing.JButton jb_Historial_de_Ventas_por_Cliente;
+    private javax.swing.JButton jb_Inventario_de_Productos;
+    private javax.swing.JButton jb_Las_5_Tiendas_con_mas_ventas_en_lo_que_va_de_año;
+    private javax.swing.JButton jb_Las_Tiendas_que_vende_Coco_Cola_mas_que_Pepsi;
+    private javax.swing.JButton jb_Los_20_Productos_mas_Vendidos_en_cada_Pais;
+    private javax.swing.JButton jb_Los_20_Productos_mas_Vendidos_en_cada_Tienda;
+    private javax.swing.JButton jb_Los_3_principales_tipos_de_producto_que_los_clientes_compran_ademas_de_la_leche;
+    private javax.swing.JButton jb_Vistas;
     private javax.swing.JDialog jd_CrMoEl;
+    private javax.swing.JDialog jd_Vistas;
     private javax.swing.JDialog jd_admin;
     private javax.swing.JDialog jd_client;
     private javax.swing.JLabel jl_cl;
@@ -1385,6 +1851,7 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPasswordField jpf_password;
     private javax.swing.JTable jt_AMostrar;
     private javax.swing.JTable jt_AMostrar1;
+    private javax.swing.JTable jt_Vistas;
     private javax.swing.JTextField jtf_nombreCorreo;
     // End of variables declaration//GEN-END:variables
     int crud = -1, crud2 = -1, counter=0;
