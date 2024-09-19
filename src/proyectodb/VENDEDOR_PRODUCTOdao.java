@@ -45,7 +45,7 @@ public class VENDEDOR_PRODUCTOdao {
             while (rs.next()){
                 VENDEDOR_PRODUCTO vp = new VENDEDOR_PRODUCTO();
                 vp.setVendedor_id(rs.getInt("vendedor_id"));
-                vp.setProducto_id(rs.getString("producto_id"));
+                vp.setProducto_id(rs.getString("producto_upc"));
                 lista.add(vp);
             }
         }catch (SQLException e){
@@ -53,4 +53,21 @@ public class VENDEDOR_PRODUCTOdao {
         }
         return lista;
     }
+    
+    public boolean EliminarVendedor_Producto(String upc) throws SQLException{
+        String sql = "DELETE FROM VENDEDOR_PRODUCTO WHERE UPC = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, upc);
+            ps.execute();
+            JOptionPane.showMessageDialog(null, "Fue eliminado exitosamente!");
+            return true;
+        }catch (SQLException e){
+            return false;
+        }finally{
+            con.close();
+        }
+    }
+    
+    
 }

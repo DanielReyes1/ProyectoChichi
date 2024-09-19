@@ -889,6 +889,7 @@ public class login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //login de admin
         if (jtf_nombreCorreo.getText().equals("admin") || jpf_password.getPassword().equals("1234")) {
+            vendedorCheck = false;
             this.setVisible(false);
             jp_cl.setVisible(true);
             jp_com.setVisible(true);
@@ -899,7 +900,6 @@ public class login extends javax.swing.JFrame {
             jd_admin.setLocationRelativeTo(this);
             jd_admin.setVisible(true);
             clienteCheck = false;
-            vendedorCheck = false;
 
         } else {
             jt_AMostrar.setModel(new DefaultTableModel());
@@ -908,6 +908,7 @@ public class login extends javax.swing.JFrame {
             for (CLIENTE c : listaC) {
                 if (jtf_nombreCorreo.getText().equals(c.getNombre()) || jtf_nombreCorreo.getText().equals(c.getCorreoElectronico())) {
                     if (jpf_password.getText().equals(c.getPassword())) {
+                        vendedorCheck = false;
                         this.setVisible(false);
                         jd_client.setModal(true);
                         jd_client.pack();
@@ -915,7 +916,6 @@ public class login extends javax.swing.JFrame {
                         jd_client.setVisible(true);
                         clienteCheck = true;
                         bandera = true;
-                        vendedorCheck = false;
                     } else {
                         JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
                     }
@@ -926,6 +926,7 @@ public class login extends javax.swing.JFrame {
                 for (VENDEDOR v : listaV) {
                     if (jtf_nombreCorreo.getText().equals(v.getNombre())) {
                         if (jpf_password.getText().equals(v.getPassword())) {
+                            vendedorCheck = true;
                             this.setVisible(false);
                             jp_cl.setVisible(false);
                             jp_com.setVisible(false);
@@ -935,7 +936,6 @@ public class login extends javax.swing.JFrame {
                             jd_admin.pack();
                             jd_admin.setLocationRelativeTo(this);
                             jd_admin.setVisible(true);
-                            vendedorCheck = true;
 
                         } else {
                             JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
@@ -944,6 +944,7 @@ public class login extends javax.swing.JFrame {
                 }
             }
         }
+        System.out.println("vendedor check: " + vendedorCheck);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1039,6 +1040,7 @@ public class login extends javax.swing.JFrame {
                 case 4:
                     PRODUCTO pr = new PRODUCTO();
                     listaP = pd.ListarProductos();
+                    int vendedorId = 0;
                     if (!listaP.isEmpty()) {
                         tm = new DefaultTableModel();
                         tm.addColumn("UPC");
@@ -1047,18 +1049,49 @@ public class login extends javax.swing.JFrame {
                         tm.addColumn("Embalaje");
                         tm.addColumn("Marca");
                         tm.addColumn("Tipo");
-                        for (PRODUCTO fi : listaP) {
-                            Object[] temp = new Object[6];
-                            temp[0] = fi.getUpc();
-                            temp[1] = fi.getNombre();
-                            temp[2] = fi.getTamanio();
-                            temp[3] = fi.getEmbalaje();
-                            temp[4] = fi.getMarca();
-                            temp[5] = fi.getTipo();
-                            tm.addRow(temp);
+
+                        if (vendedorCheck) {
+                            System.out.println(vendedorCheck);
+                            listaV = vd.ListarVendedor();
+                            listaVP = vpd.ListarVendedor_Producto();
+                            for (VENDEDOR vi : listaV) {
+                                if (vi.getNombre().equals(jtf_nombreCorreo.getText())) {
+                                    vendedorId = vi.getId();
+                                }
+                            }
+                            System.out.println(listaVP.size());
+                            for (VENDEDOR_PRODUCTO vpi : listaVP) {
+
+                                for (PRODUCTO fi : listaP) {
+                                    if (fi.getUpc().equals(vpi.getProducto_id()) && vpi.getVendedor_id() == vendedorId) {
+                                        Object[] temp = new Object[6];
+                                        temp[0] = fi.getUpc();
+                                        temp[1] = fi.getNombre();
+                                        temp[2] = fi.getTamanio();
+                                        temp[3] = fi.getEmbalaje();
+                                        temp[4] = fi.getMarca();
+                                        temp[5] = fi.getTipo();
+                                        tm.addRow(temp);
+                                    }
+                                }
+                            }
+                            jt_AMostrar.setEnabled(true);
+                            jt_AMostrar.setModel(tm);
+                        } else {
+                            for (PRODUCTO fi : listaP) {
+                                Object[] temp = new Object[6];
+                                temp[0] = fi.getUpc();
+                                temp[1] = fi.getNombre();
+                                temp[2] = fi.getTamanio();
+                                temp[3] = fi.getEmbalaje();
+                                temp[4] = fi.getMarca();
+                                temp[5] = fi.getTipo();
+                                tm.addRow(temp);
+                            }
+                            jt_AMostrar.setModel(tm);
+                            jt_AMostrar.setEnabled(true);
                         }
-                        jt_AMostrar.setModel(tm);
-                        jt_AMostrar.setEnabled(true);
+
                         jt_AMostrar.setEditingColumn(0);
                         jt_AMostrar.setEditingColumn(1);
                         jt_AMostrar.setEditingColumn(2);
@@ -1130,6 +1163,7 @@ public class login extends javax.swing.JFrame {
     private void jb_AModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_AModificarActionPerformed
         // primero lista todo
         jd_CrMoEl.setVisible(false);
+
         if (botonA) {
             jb_CrMoEl.setText("Modificar");
             crud2 = 2;
@@ -1210,6 +1244,7 @@ public class login extends javax.swing.JFrame {
                         tm.addColumn("Marca");
                         tm.addColumn("Tipo");
                         if (vendedorCheck) {
+                            System.out.println(vendedorCheck);
                             listaV = vd.ListarVendedor();
                             listaVP = vpd.ListarVendedor_Producto();
                             for (VENDEDOR vi : listaV) {
@@ -1217,7 +1252,9 @@ public class login extends javax.swing.JFrame {
                                     vendedorId = vi.getId();
                                 }
                             }
+                            System.out.println(listaVP.size());
                             for (VENDEDOR_PRODUCTO vpi : listaVP) {
+
                                 for (PRODUCTO fi : listaP) {
                                     if (fi.getUpc().equals(vpi.getProducto_id()) && vpi.getVendedor_id() == vendedorId) {
                                         Object[] temp = new Object[5];
@@ -1230,6 +1267,8 @@ public class login extends javax.swing.JFrame {
                                     }
                                 }
                             }
+                            jt_AMostrar.setEnabled(true);
+                            jt_AMostrar.setModel(tm);
 
                         } else {
                             for (PRODUCTO fi : listaP) {
@@ -1376,15 +1415,19 @@ public class login extends javax.swing.JFrame {
                 case 4:
                     PRODUCTO pr = new PRODUCTO();
                     int vendedor_id = 0;
+                    listaP = pd.ListarProductos();
+                    listaV = vd.ListarVendedor();
+                    listaVP = vpd.ListarVendedor_Producto();
                     for (VENDEDOR vi : listaV) {
                         if (vi.getNombre().equals(jtf_nombreCorreo.getText())) {
                             vendedor_id = vi.getId();
                         }
                     }
                     switch (crud2) {
+
                         case 1:
-                            listaP = pd.ListarProductos();
-                            listaV = vd.ListarVendedor();
+
+                            System.out.println(vendedorCheck);
                             boolean check = true;
                             for (PRODUCTO pi : listaP) {
                                 if (jt_AMostrar.getValueAt(0, 0).equals(pi.getUpc())) {
@@ -1401,6 +1444,9 @@ public class login extends javax.swing.JFrame {
                                 pd.InsertarProductos(pr);
                                 if (vendedorCheck) {
                                     vpd.InsertarVendedor_Producto(vendedor_id, (String) jt_AMostrar.getValueAt(0, 0));
+                                    pd.InsertarProductos(pr);
+                                } else {
+                                    pd.InsertarProductos(pr);
                                 }
                             } else {
                                 JOptionPane.showMessageDialog(this, "Esta UPC ya esta siendo usada");
@@ -1408,23 +1454,52 @@ public class login extends javax.swing.JFrame {
                             break;
 
                         case 2:
-                            for (int i = 0; i < listaP.size(); i++) {
-                                if (listaP.get(i).getNombre().equals(jt_AMostrar.getValueAt(i, 0))
-                                        && listaP.get(i).getTamanio().equals(jt_AMostrar.getValueAt(i, 1))
-                                        && listaP.get(i).getEmbalaje().equals(jt_AMostrar.getValueAt(i, 2))
-                                        && listaP.get(i).getMarca().equals(jt_AMostrar.getValueAt(i, 3))
-                                        && listaP.get(i).getTipo().equals(jt_AMostrar.getValueAt(i, 4))) {
+                            if (vendedorCheck) {
+                                listaVP = vpd.ListarVendedor_Producto();
+                                listaP = pd.ListarProductos();
+                                for (int i = 0; i < jt_AMostrar.getRowCount(); i++) {
+                                    for (PRODUCTO pi : listaP) {
+                                        if (pi.getUpc().equals(listaVP.get(i).getProducto_id())) {
+                                            System.out.println("Funciona?");
+                                            if (pi.getNombre().equals(jt_AMostrar.getValueAt(i, 0))
+                                                    && pi.getTamanio().equals(jt_AMostrar.getValueAt(i, 1))
+                                                    && pi.getEmbalaje().equals(jt_AMostrar.getValueAt(i, 2))
+                                                    && pi.getMarca().equals(jt_AMostrar.getValueAt(i, 3))
+                                                    && pi.getTipo().equals(jt_AMostrar.getValueAt(i, 4))) {
 
-                                } else {
-                                    pr.setUpc(listaP.get(i).getUpc());
-                                    pr.setNombre((String) jt_AMostrar.getValueAt(0, 0));
-                                    pr.setTamanio((String) jt_AMostrar.getValueAt(0, 1));
-                                    pr.setEmbalaje((String) jt_AMostrar.getValueAt(0, 3));
-                                    pr.setMarca((String) jt_AMostrar.getValueAt(0, 4));
-                                    pr.setTipo((String) jt_AMostrar.getValueAt(0, 5));
-                                    pd.ModificarProducto(pr);
+                                            } else {
+                                                pr.setUpc(listaP.get(i).getUpc());
+                                                pr.setNombre((String) jt_AMostrar.getValueAt(0, 0));
+                                                pr.setTamanio((String) jt_AMostrar.getValueAt(0, 1));
+                                                pr.setEmbalaje((String) jt_AMostrar.getValueAt(0, 2));
+                                                pr.setMarca((String) jt_AMostrar.getValueAt(0, 3));
+                                                pr.setTipo((String) jt_AMostrar.getValueAt(0, 4));
+                                                System.out.println("yuppiiiiiiiiiiiii");
+                                                pd.ModificarProducto(pr);
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                for (int i = 0; i < listaP.size(); i++) {
+                                    if (listaP.get(i).getNombre().equals(jt_AMostrar.getValueAt(i, 0))
+                                            && listaP.get(i).getTamanio().equals(jt_AMostrar.getValueAt(i, 1))
+                                            && listaP.get(i).getEmbalaje().equals(jt_AMostrar.getValueAt(i, 2))
+                                            && listaP.get(i).getMarca().equals(jt_AMostrar.getValueAt(i, 3))
+                                            && listaP.get(i).getTipo().equals(jt_AMostrar.getValueAt(i, 4))) {
+
+                                    } else {
+                                        pr.setUpc(listaP.get(i).getUpc());
+                                        pr.setNombre((String) jt_AMostrar.getValueAt(0, 0));
+                                        pr.setTamanio((String) jt_AMostrar.getValueAt(0, 1));
+                                        pr.setEmbalaje((String) jt_AMostrar.getValueAt(0, 2));
+                                        pr.setMarca((String) jt_AMostrar.getValueAt(0, 3));
+                                        pr.setTipo((String) jt_AMostrar.getValueAt(0, 4));
+                                        pd.ModificarProducto(pr);
+                                    }
                                 }
                             }
+
                             break;
                         case 3:
                             int ele = jt_AMostrar.getSelectedRow();
@@ -1432,6 +1507,9 @@ public class login extends javax.swing.JFrame {
                                 try {
                                     pd.EliminarProducto(listaP.get(ele).getUpc());
                                     tm = (DefaultTableModel) jt_AMostrar.getModel();
+                                    if (vendedorCheck) {
+
+                                    }
                                     tm.removeRow(ele);
                                     jt_AMostrar.setModel(tm);
                                 } catch (SQLException ex) {
