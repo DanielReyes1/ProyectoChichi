@@ -936,7 +936,7 @@ public class login extends javax.swing.JFrame {
                             jd_admin.pack();
                             jd_admin.setLocationRelativeTo(this);
                             jd_admin.setVisible(true);
-
+                            
                         } else {
                             JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
                         }
@@ -1301,10 +1301,17 @@ public class login extends javax.swing.JFrame {
                     switch (crud2) {
 
                         case 1:
-                            cl.setNombre((String) jt_AMostrar.getValueAt(0, 0));
-                            cl.setCorreoElectronico((String) jt_AMostrar.getValueAt(0, 1));
-                            cl.setPassword((String) jt_AMostrar.getValueAt(0, 2));
-                            cd.InsertarCliente(cl);
+                            if( jt_AMostrar.getValueAt(0, 0)==null||jt_AMostrar.getValueAt(0, 1)==null||jt_AMostrar.getValueAt(0, 2)==null){
+                                JOptionPane.showMessageDialog(null, "Hay campos vacios y no se pudo crear un Cliente");
+                            }else{
+                                cl.setNombre((String) jt_AMostrar.getValueAt(0, 0));
+                                cl.setCorreoElectronico((String) jt_AMostrar.getValueAt(0, 1));
+                                cl.setPassword((String) jt_AMostrar.getValueAt(0, 2));
+                                cd.InsertarCliente(cl);
+                                jt_AMostrar.setValueAt(null, 0, 0);
+                                jt_AMostrar.setValueAt(null, 0, 1);
+                                jt_AMostrar.setValueAt(null, 0, 2);
+                            }
                             break;
                         case 2:
                             for (int i = 0; i < listaC.size(); i++) {
@@ -1314,10 +1321,14 @@ public class login extends javax.swing.JFrame {
 
                                 } else {
                                     cl.setId(listaC.get(i).getId());
-                                    cl.setNombre((String) jt_AMostrar.getValueAt(0, 0));
-                                    cl.setCorreoElectronico((String) jt_AMostrar.getValueAt(0, 1));
-                                    cl.setPassword((String) jt_AMostrar.getValueAt(0, 2));
-                                    cd.ModificarCliente(cl);
+                                    cl.setNombre((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(),0));
+                                    cl.setCorreoElectronico((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1));
+                                    cl.setPassword((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 2));
+                                    if(jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 0)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 2)==null){
+                                        JOptionPane.showMessageDialog(this, "No se puede modificar porque hay campos vacios");
+                                    }else{
+                                        cd.ModificarCliente(cl);
+                                    }
                                 }
                             }
                             break;
@@ -1341,20 +1352,31 @@ public class login extends javax.swing.JFrame {
                     VENDEDOR ven = new VENDEDOR();
                     switch (crud2) {
                         case 1:
-                            ven.setNombre((String) jt_AMostrar.getValueAt(0, 0));
-                            ven.setPassword((String) jt_AMostrar.getValueAt(0, 1));
-                            vd.InsertarVendedor(ven);
-                            break;
+                            if( jt_AMostrar.getValueAt(0, 0)==null||jt_AMostrar.getValueAt(0, 1)==null){
+                                JOptionPane.showMessageDialog(null, "Hay campos vacios y no se pudo crear un Vendedor");
+                            }else{
+                                ven.setNombre((String) jt_AMostrar.getValueAt(0, 0));
+                                ven.setPassword((String) jt_AMostrar.getValueAt(0, 1));
+                                vd.InsertarVendedor(ven);
+                                jt_AMostrar.setValueAt(null, 0, 0);
+                                jt_AMostrar.setValueAt(null, 0, 1);
+                            }
+                            break;  
                         case 2:
                             for (int i = 0; i < listaV.size(); i++) {
                                 if (listaV.get(i).getNombre().equals(jt_AMostrar.getValueAt(i, 0))
                                         && listaV.get(i).getPassword().equals(jt_AMostrar.getValueAt(i, 1))) {
-
                                 } else {
                                     ven.setId(listaV.get(i).getId());
-                                    ven.setNombre((String) jt_AMostrar.getValueAt(0, 0));
-                                    ven.setPassword((String) jt_AMostrar.getValueAt(0, 1));
-                                    vd.ModificarVendedor(ven);
+                                    ven.setNombre((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 0));
+                                    ven.setPassword((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1));
+                                    if(jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 0)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1)==null){
+                                        JOptionPane.showMessageDialog(this, "No se puede modificar porque hay campos vacios");
+                                    }else{
+                                        vd.ModificarVendedor(ven);
+                                    }
+                                    
+                                    
                                 }
                             }
                             break;
@@ -1377,10 +1399,17 @@ public class login extends javax.swing.JFrame {
                     TIENDA ti = new TIENDA();
                     switch (crud2) {
                         case 1:
-                            ti.setNombre((String) jt_AMostrar.getValueAt(0, 0));
-                            ti.setUbicaciones((String) jt_AMostrar.getValueAt(0, 1));
-                            ti.setHorario((String) jt_AMostrar.getValueAt(0, 2));
-                            td.InsertarTienda(ti);
+                            if( jt_AMostrar.getValueAt(0, 0)==null||jt_AMostrar.getValueAt(0, 1)==null||jt_AMostrar.getValueAt(0, 2)==null){
+                                JOptionPane.showMessageDialog(null, "Hay campos vacios y no se pudo crear un Tienda");
+                            }else{
+                                ti.setNombre((String) jt_AMostrar.getValueAt(0, 0));
+                                ti.setUbicaciones((String) jt_AMostrar.getValueAt(0, 1));
+                                ti.setHorario((String) jt_AMostrar.getValueAt(0, 2));
+                                td.InsertarTienda(ti);
+                                jt_AMostrar.setValueAt(null, 0, 0);
+                                jt_AMostrar.setValueAt(null, 0, 1);
+                                jt_AMostrar.setValueAt(null, 0, 2);
+                            }
                             break;
                         case 2:
                             for (int i = 0; i < listaT.size(); i++) {
@@ -1390,10 +1419,14 @@ public class login extends javax.swing.JFrame {
 
                                 } else {
                                     ti.setId(listaT.get(i).getId());
-                                    ti.setNombre((String) jt_AMostrar.getValueAt(0, 0));
-                                    ti.setUbicaciones((String) jt_AMostrar.getValueAt(0, 1));
-                                    ti.setHorario((String) jt_AMostrar.getValueAt(0, 2));
-                                    td.ModificarTienda(ti);
+                                    ti.setNombre((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 0));
+                                    ti.setUbicaciones((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1));
+                                    ti.setHorario((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 2));
+                                    if(jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 0)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 2)==null){
+                                        JOptionPane.showMessageDialog(this, "No se puede modificar porque hay campos vacios");
+                                    }else{
+                                        td.ModificarTienda(ti);
+                                    }
                                 }
                             }
                             break;
@@ -1424,9 +1457,7 @@ public class login extends javax.swing.JFrame {
                         }
                     }
                     switch (crud2) {
-
                         case 1:
-
                             System.out.println(vendedorCheck);
                             boolean check = true;
                             for (PRODUCTO pi : listaP) {
@@ -1435,13 +1466,24 @@ public class login extends javax.swing.JFrame {
                                 }
                             }
                             if (check) {
-                                pr.setUpc((String) jt_AMostrar.getValueAt(0, 0));
-                                pr.setNombre((String) jt_AMostrar.getValueAt(0, 1));
-                                pr.setTamanio((String) jt_AMostrar.getValueAt(0, 2));
-                                pr.setEmbalaje((String) jt_AMostrar.getValueAt(0, 3));
-                                pr.setMarca((String) jt_AMostrar.getValueAt(0, 4));
-                                pr.setTipo((String) jt_AMostrar.getValueAt(0, 5));
-                                pd.InsertarProductos(pr);
+                                if( jt_AMostrar.getValueAt(0, 0)==null||jt_AMostrar.getValueAt(0, 1)==null||jt_AMostrar.getValueAt(0, 2)==null||jt_AMostrar.getValueAt(0, 3)==null||jt_AMostrar.getValueAt(0, 4)==null||jt_AMostrar.getValueAt(0, 5)==null){
+                                JOptionPane.showMessageDialog(null, "Hay campos vacios y no se pudo crear un Producto");
+                                }else{
+                                    pr.setUpc((String) jt_AMostrar.getValueAt(0, 0));
+                                    pr.setNombre((String) jt_AMostrar.getValueAt(0, 1));
+                                    pr.setTamanio((String) jt_AMostrar.getValueAt(0, 2));
+                                    pr.setEmbalaje((String) jt_AMostrar.getValueAt(0, 3));
+                                    pr.setMarca((String) jt_AMostrar.getValueAt(0, 4));
+                                    pr.setTipo((String) jt_AMostrar.getValueAt(0, 5));
+                                    pd.InsertarProductos(pr);
+                                    jt_AMostrar.setValueAt(null, 0, 0);
+                                    jt_AMostrar.setValueAt(null, 0, 1);
+                                    jt_AMostrar.setValueAt(null, 0, 2);
+                                    jt_AMostrar.setValueAt(null, 0, 3);
+                                    jt_AMostrar.setValueAt(null, 0, 4);
+                                    jt_AMostrar.setValueAt(null, 0, 5);
+                                }
+                                
                                 if (vendedorCheck) {
                                     vpd.InsertarVendedor_Producto(vendedor_id, (String) jt_AMostrar.getValueAt(0, 0));
                                     pd.InsertarProductos(pr);
@@ -1469,13 +1511,18 @@ public class login extends javax.swing.JFrame {
 
                                             } else {
                                                 pr.setUpc(listaP.get(i).getUpc());
-                                                pr.setNombre((String) jt_AMostrar.getValueAt(0, 0));
-                                                pr.setTamanio((String) jt_AMostrar.getValueAt(0, 1));
-                                                pr.setEmbalaje((String) jt_AMostrar.getValueAt(0, 2));
-                                                pr.setMarca((String) jt_AMostrar.getValueAt(0, 3));
-                                                pr.setTipo((String) jt_AMostrar.getValueAt(0, 4));
+                                                pr.setNombre((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 0));
+                                                pr.setTamanio((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1));
+                                                pr.setEmbalaje((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 2));
+                                                pr.setMarca((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 3));
+                                                pr.setTipo((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 4));
                                                 System.out.println("yuppiiiiiiiiiiiii");
-                                                pd.ModificarProducto(pr);
+                                               
+                                                if(jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 0)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 2)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 3)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 4)==null){
+                                                    JOptionPane.showMessageDialog(this, "No se puede modificar porque hay campos vacios");
+                                                }else{
+                                                     pd.ModificarProducto(pr);
+                                                }
                                             }
                                         }
                                     }
@@ -1490,12 +1537,16 @@ public class login extends javax.swing.JFrame {
 
                                     } else {
                                         pr.setUpc(listaP.get(i).getUpc());
-                                        pr.setNombre((String) jt_AMostrar.getValueAt(0, 0));
-                                        pr.setTamanio((String) jt_AMostrar.getValueAt(0, 1));
-                                        pr.setEmbalaje((String) jt_AMostrar.getValueAt(0, 2));
-                                        pr.setMarca((String) jt_AMostrar.getValueAt(0, 3));
-                                        pr.setTipo((String) jt_AMostrar.getValueAt(0, 4));
-                                        pd.ModificarProducto(pr);
+                                        pr.setNombre((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 0));
+                                        pr.setTamanio((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1));
+                                        pr.setEmbalaje((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 2));
+                                        pr.setMarca((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 3));
+                                        pr.setTipo((String) jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 4));
+                                        if(jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 0)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 1)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 2)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 3)==null||jt_AMostrar.getValueAt(jt_AMostrar.getSelectedRow(), 4)==null){
+                                           JOptionPane.showMessageDialog(this, "No se puede modificar porque hay campos vacios");
+                                        }else{
+                                            pd.ModificarProducto(pr);
+                                        }
                                     }
                                 }
                             }
