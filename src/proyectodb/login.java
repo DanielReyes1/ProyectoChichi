@@ -1460,9 +1460,14 @@ public class login extends javax.swing.JFrame {
                         case 1:
                             System.out.println(vendedorCheck);
                             boolean check = true;
-                            for (PRODUCTO pi : listaP) {
-                                if (jt_AMostrar.getValueAt(0, 0).equals(pi.getUpc())) {
-                                    check = false;
+                            
+                            if(jt_AMostrar.getValueAt(0, 0)==null){
+                                    JOptionPane.showMessageDialog(null, "El UPC esta vacio");
+                            }else{
+                                for (PRODUCTO pi : listaP) {
+                                    if (jt_AMostrar.getValueAt(0, 0).equals(pi.getUpc())) {
+                                        check = false;
+                                    }
                                 }
                             }
                             if (check) {

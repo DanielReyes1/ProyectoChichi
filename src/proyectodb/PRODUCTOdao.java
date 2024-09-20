@@ -79,7 +79,7 @@ public class PRODUCTOdao {
     }
     
     public boolean ModificarProducto(PRODUCTO pr){
-        String sql = "UPDATE PRODUCO SET nombre=?, tamaño=?, embalaje=?, marca=?, tipo=? WHERE UPC=?";
+        String sql = "UPDATE PRODUCTO SET nombre=?, tamaño=?, embalaje=?, marca=?, tipo=? WHERE UPC=?";
         try{
             ps = con.prepareStatement(sql);
             ps.setString(1, pr.getNombre());
